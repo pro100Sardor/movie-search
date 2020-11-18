@@ -5,10 +5,8 @@ var elPageMain = $_ ('#pageMain');
 var elMoviesList = $_ ('#moviesList', elPageMain);
 
 
-
 // for the convenience of the tester :)
 var elMoviesTitleList = $_ ('#moviesTitleList', elPageMain);
-
 
 
 var normalizedMovies = movies.map(function (movie, i) {
@@ -36,22 +34,22 @@ function createCinemaItem (itemFeatureTitle, itemFeatureText) {
   return item;
 }
 
+
 // this part has nothing to do with logic, only for the convenience of the tester
 function copyToClipboard(copyItemId) {
-  debugger;
-  var copyText = document.getElementById(copyItemId);
+  var copyText = document.querySelector(`#${copyItemId}`);
   copyText.select();
   copyText.setSelectionRange(0, 99999);
   document.execCommand('copy');
 
-  var tooltip = document.getElementById('titleTooltip');
-  tooltip.innerHTML = 'Copied: ' + copyText.value;
+  // var tooltip = document.getElementById('titleTooltip');
+  // tooltip.innerHTML = 'Copied: ' + copyText.value;
 }
 
-function outFunc() {
-  var tooltip = document.getElementById('titleTooltip');
-  tooltip.innerHTML = 'Copy to clipboard';
-}
+// function outFunc() {
+//   var tooltip = document.getElementById('titleTooltip');
+//   tooltip.innerHTML = 'Copy to clipboard';
+// }
 
 normalizedMovies.forEach(function(movie){
 
@@ -61,19 +59,16 @@ normalizedMovies.forEach(function(movie){
   item.appendChild(itemTitle);
 
   var itemText = document.createElement('span');
-  console.log(movie.id);
   itemText.id = `title${movie.id}`;
   itemText.textContent = movie.title;
   item.appendChild(itemText);
 
   var itemCopyButton = createElement('button', 'btn movies-title-list__copy-button ml-3');
   itemCopyButton.setAttribute('onclick', `copyToClipboard(${itemText.id})`);
-  itemCopyButton.setAttribute('onmouseout', 'outFunc()');
+  // itemCopyButton.setAttribute('onmouseout', 'outFunc()');
   item.appendChild(itemCopyButton);
 
   elMoviesTitleList.appendChild(item);
-
-    // elMoviesTitleList.appendChild(createCinemaItem('Title: ', movie.title));
 });
 
 
