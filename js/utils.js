@@ -13,3 +13,14 @@ function isInputEmpty (inputValue) {
     return false;
   }
 }
+
+function createElement (tagName, className, text) {
+  var element = document.createElement(tagName);
+  element.setAttribute('class', className);
+
+  if (text) {
+    element.textContent = text;
+  }
+
+  return element;
+};
