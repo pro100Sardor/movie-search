@@ -2,6 +2,13 @@ var elSearchForm = $_ ('#searchForm');
 var elUserSearch = $_ ('#userSearch', elSearchForm);
 
 var elPageMain = $_ ('#pageMain');
+var elMoviesList = $_ ('#moviesList', elPageMain);
+
+
+
+// for the convenience of the tester :)
+var elMoviesTitleList = $_ ('#moviesTitleList', elPageMain);
+
 
 
 var normalizedMovies = movies.map(function (movie, i) {
@@ -29,42 +36,53 @@ function createCinemaItem (itemFeatureTitle, itemFeatureText) {
   return item;
 }
 
+// this part has nothing to do with logic, only for the convenience of the tester
+normalizedMovies.forEach(function(movie){
+
+    elMoviesTitleList.appendChild(createCinemaItem('Title: ', movie.title));
+});
+
+
+
 elSearchForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
 
   var userSearch = elUserSearch.value.trim();
 
-  var searchRegex = new RegExp(userSearch, 'gi');
+  elMoviesList.innerHTML = '';
 
-  elPageMain.innerHTML = '';
+  if (!isInputEmpty(userSearch)) {
 
-  normalizedMovies.forEach(function(movie){
-    if (movie.title.match(searchRegex)) {
-      var cinemaList = createElement('ul', 'movies-list list-unstyled mb-4 bg-white rounded pt-3 shadow');
+    var searchRegex = new RegExp(userSearch, 'gi');
 
-      cinemaList.appendChild(createCinemaItem('№: ', movie.id));
-      cinemaList.appendChild(createCinemaItem('Title: ', movie.title));
-      cinemaList.appendChild(createCinemaItem('Year: ', movie.year));
-      cinemaList.appendChild(createCinemaItem('Category: ', movie.categories));
-      cinemaList.appendChild(createCinemaItem('Summary: ', movie.summary));
-      cinemaList.appendChild(createCinemaItem('IMDB id: ', movie.imdbId));
-      cinemaList.appendChild(createCinemaItem('IMDB Reiting: ', movie.imdbRating));
-      cinemaList.appendChild(createCinemaItem('Runtime: ', movie.runtime));
-      cinemaList.appendChild(createCinemaItem('Language: ', movie.language));
+    normalizedMovies.forEach(function(movie){
 
-      var cinemaTriller = document.createElement('a');
-      cinemaTriller.href = `http://youtube.com/watch?v=${movie.youtubeId}`;
-      cinemaTriller.target = '_blank';
-      cinemaTriller.textContent = movie.youtubeId;
-      cinemaList.appendChild(createCinemaItem('Triller: ', cinemaTriller));
+      if (movie.title.match(searchRegex)) {
 
-      elPageMain.appendChild(cinemaList);
+        elMoviesList.appendChild(createCinemaItem('№: ', movie.id));
+        elMoviesList.appendChild(createCinemaItem('Title: ', movie.title));
+        elMoviesList.appendChild(createCinemaItem('Year: ', movie.year));
+        elMoviesList.appendChild(createCinemaItem('Category: ', movie.categories));
+        elMoviesList.appendChild(createCinemaItem('Summary: ', movie.summary));
+        elMoviesList.appendChild(createCinemaItem('IMDB id: ', movie.imdbId));
+        elMoviesList.appendChild(createCinemaItem('IMDB Reiting: ', movie.imdbRating));
+        elMoviesList.appendChild(createCinemaItem('Runtime: ', movie.runtime));
+        elMoviesList.appendChild(createCinemaItem('Language: ', movie.language));
+
+        var cinemaTriller = document.createElement('a');
+        cinemaTriller.href = `http://youtube.com/watch?v=${movie.youtubeId}`;
+        cinemaTriller.target = '_blank';
+        cinemaTriller.textContent = movie.youtubeId;
+        elMoviesList.appendChild(createCinemaItem('Triller: ', cinemaTriller));
+      }
+    });
+
+    if (elMoviesList.innerHTML === '') {
+      elMoviesList.appendChild(createElement('li', 'text-danger px-3', 'No movie with this title was found'));
     }
-  });
-
-  if (elPageMain.innerHTML === '') {
-    elPageMain.appendChild(createElement('p', 'text-white', 'Bunday titleli kino topilmadi'));
+  } else {
+    elMoviesList.appendChild(createElement('li', 'text-danger px-3', 'No information was entered in the search field'));
   }
-
 });
+
 

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
 
-  <title></title>
+  <title>Movie finder</title>
 
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/main.min.css">
@@ -14,15 +14,19 @@
 <body class="page__body page__body--nojs pt-5 bg-secondary" id="siteBody">
   <script src="./js/nojs.min.js"></script>
 
+  <h1 class="sr-only">A site where you can search for movies by title</h1>
+
   <!-- HEADER part of page started -->
 
-  <header class="container mb-5">
-    <h2 class="text-white mb-5">List of movies</h2>
+  <header class="container mb-4">
+    <h2 class="text-white mb-4">List of movies</h2>
+
     <form class="d-flex mr-3 flex-grow-1" id="searchForm" action="https://echo.htmlacademy.ru" method="GET" autocomplete="off">
       <div class="form-row flex-grow-1">
         <div class="col-10">
-          <input class="form-control mr-1 flex-grow-1" type="search" name="user-search" id="userSearch" required placeholder="Enter a movie title...">
+          <input class="form-control mr-1 flex-grow-1" type="search" name="user-search" id="userSearch" placeholder="Enter a movie title..." aria-label="enter the title of the movie you want" required>
         </div>
+
         <div class="col-2">
           <button class="btn btn-block btn-success" type="submit" name="submit" value="submit">search</button>
         </div>
@@ -35,7 +39,11 @@
 
   <!-- MAIN part of page started -->
 
-  <main class="page__main container d-flex flex-wrap justify-content-between" id="pageMain"></main>
+  <main class="page__main container d-flex flex-wrap justify-content-between" id="pageMain">
+    <ul class="movies-list list-unstyled bg-white rounded pt-3 shadow" id="moviesList"></ul>
+
+    <ul class="movies-list list-unstyled bg-white rounded pt-3 shadow ml-auto" id="moviesTitleList"></ul>
+  </main>
 
   <!-- MAIN part of page ended -->
 
@@ -47,6 +55,6 @@
   <script src="./js/bootstrap.bundle.min.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/movies.js"></script>
-  <script src="./js/scripts.js"></script>
+  <script src="./js/scripts.min.js"></script>
 </body>
 </html>
