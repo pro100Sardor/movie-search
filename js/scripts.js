@@ -37,9 +37,43 @@ function createCinemaItem (itemFeatureTitle, itemFeatureText) {
 }
 
 // this part has nothing to do with logic, only for the convenience of the tester
+function copyToClipboard(copyItemId) {
+  debugger;
+  var copyText = document.getElementById(copyItemId);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand('copy');
+
+  var tooltip = document.getElementById('titleTooltip');
+  tooltip.innerHTML = 'Copied: ' + copyText.value;
+}
+
+function outFunc() {
+  var tooltip = document.getElementById('titleTooltip');
+  tooltip.innerHTML = 'Copy to clipboard';
+}
+
 normalizedMovies.forEach(function(movie){
 
-    elMoviesTitleList.appendChild(createCinemaItem('Title: ', movie.title));
+  var item = createElement('li', 'mb-4 px-3');
+
+  var itemTitle = createElement('span', 'font-weight-bold', 'Title: ');
+  item.appendChild(itemTitle);
+
+  var itemText = document.createElement('span');
+  console.log(movie.id);
+  itemText.id = `title${movie.id}`;
+  itemText.textContent = movie.title;
+  item.appendChild(itemText);
+
+  var itemCopyButton = createElement('button', 'btn movies-title-list__copy-button ml-3');
+  itemCopyButton.setAttribute('onclick', `copyToClipboard(${itemText.id})`);
+  itemCopyButton.setAttribute('onmouseout', 'outFunc()');
+  item.appendChild(itemCopyButton);
+
+  elMoviesTitleList.appendChild(item);
+
+    // elMoviesTitleList.appendChild(createCinemaItem('Title: ', movie.title));
 });
 
 

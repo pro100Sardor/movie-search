@@ -18,16 +18,16 @@
 
   <!-- HEADER part of page started -->
 
-  <header class="container mb-4">
-    <h2 class="text-white mb-4">List of movies</h2>
+  <header class="container mb-4 d-flex flex-column">
+    <h2 class="text-white mb-3 mb-sm-4">Movie finder</h2>
 
-    <form class="d-flex mr-3 flex-grow-1" id="searchForm" action="https://echo.htmlacademy.ru" method="GET" autocomplete="off">
+    <form class="d-flex flex-grow-1" id="searchForm" action="https://echo.htmlacademy.ru" method="GET" autocomplete="off">
       <div class="form-row flex-grow-1">
-        <div class="col-10">
+        <div class="col-sm-10 col-12 mb-sm-0 mb-2 flex-grow-1">
           <input class="form-control mr-1 flex-grow-1" type="search" name="user-search" id="userSearch" placeholder="Enter a movie title..." aria-label="enter the title of the movie you want" required>
         </div>
 
-        <div class="col-2">
+        <div class="col-sm-2 col-12 flex-grow-1">
           <button class="btn btn-block btn-success" type="submit" name="submit" value="submit">search</button>
         </div>
       </div>
@@ -39,11 +39,18 @@
 
   <!-- MAIN part of page started -->
 
-  <main class="page__main container d-flex flex-wrap justify-content-between" id="pageMain">
-    <ul class="movies-list list-unstyled bg-white rounded pt-3 shadow" id="moviesList"></ul>
+  <main class="site-main container d-flex flex-sm-row flex-column flex-wrap justify-content-between align-items-center" id="pageMain">
+    <ul class="site-main__movies-list movies-search-list list-unstyled bg-white rounded pt-3 shadow" id="moviesList"></ul>
 
-    <ul class="movies-list list-unstyled bg-white rounded pt-3 shadow ml-auto" id="moviesTitleList"></ul>
+    <ul class="site-main__movies-list movies-title-list list-unstyled bg-white rounded pt-3 shadow ml-sm-auto ml-0" id="moviesTitleList"></ul>
   </main>
+
+  <div class="tooltip">
+    <button onclick="copyToClipboard()" onmouseout="outFunc()">
+      <span class="tooltiptext" id="titleTooltip">Copy to clipboard</span>
+      Copy text
+    </button>
+  </div>
 
   <!-- MAIN part of page ended -->
 
@@ -55,6 +62,6 @@
   <script src="./js/bootstrap.bundle.min.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/movies.js"></script>
-  <script src="./js/scripts.min.js"></script>
+  <script src="./js/scripts.js"></script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+.site-main__movies-list {
+  width: 48%;
+  height: 70vh;
+  overflow-y: auto;
+}
+
+@include breakpoint-down (576px) {
+  .site-main__movies-list {
+    width: 100%;
+  }
+}
